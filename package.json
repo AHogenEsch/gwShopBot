@@ -1,0 +1,1 @@
+{"name":"GoldGrinder","version":"1.0.0","description":"Grinder Overlord","main":"bot.js","author":"GoldenWind","dependencies":{"discord.io":"https://github.com/woor/discord.io/tarball/gateway_v6","discord.js":"^13.6.0","winston":"^3.6.0"}}
