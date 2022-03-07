@@ -41,13 +41,10 @@ module.exports = {
 		else if(suffix == 'w'){
 			time *= 604800000;
 		}
-		else if(suffix == 'd'){
+		else{
 			time *= 86400000;
 		}
-		else{
-			//default expiry
-			time = 1663783031450;
-		}
+		time += Date.now();
 
 		// let result = await fetch("http://164.92.65.15:5000/add_autogrinder", {headers:{"OofAuth": airtable}, "api_key": "PlaceHolder123", "discord_id": target}).then(resp => resp.json())		//create randomly generated key that is not already in database
 		let result = await axios.post('http://164.92.65.15:5000/add_autogrinder', {api_key: key, expire_after: time, discord_id: target.id}, {headers:{"OofAuth": oofauth}}) //.then(resp => resp.json())
