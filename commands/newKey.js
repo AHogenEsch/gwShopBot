@@ -7,7 +7,7 @@ const { oofauth } = require('../config.json');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('newkey')
-		.setDescription('Lists commands')
+		.setDescription('Creates new Key')
 		.addUserOption(option =>
 			option.setName('target')
 			.setDescription('The user the key is for')
@@ -48,6 +48,6 @@ module.exports = {
 
 		// let result = await fetch("http://164.92.65.15:5000/add_autogrinder", {headers:{"OofAuth": airtable}, "api_key": "PlaceHolder123", "discord_id": target}).then(resp => resp.json())		//create randomly generated key that is not already in database
 		let result = await axios.post('http://164.92.65.15:5000/add_autogrinder', {api_key: key, expire_after: time, discord_id: target.id}, {headers:{"OofAuth": oofauth}}) //.then(resp => resp.json())
-		await interaction.reply(`Target User: ${target.username}\nDuration: ${time}\nApiKey: ${key}`);
+		await interaction.reply(`Target User: <@${target.id}>\nDuration: ${duration}\nApiKey: ${key}`);
 	},
 };
