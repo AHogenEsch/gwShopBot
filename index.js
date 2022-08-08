@@ -24,7 +24,7 @@ client.on('interactionCreate', async interaction => {
 
 	const command = client.commands.get(interaction.commandName);
 
-	//making sue it is a command
+	//making sure it is a command
 	if (!command) return;
 
 	//constructing array of permissions from the returned bitfield

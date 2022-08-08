@@ -19,7 +19,7 @@ module.exports = {
 		const target = interaction.options.getUser('target');
         var keys = [];
 		let result = await axios.post('http://164.92.65.15:5000/list_autogrinder', {discord_id: target.id}, {headers:{"OofAuth": oofauth}}).then(resp => {keys = resp.data}); //.then(response => response.data).then(data => response.json({message: 'Keys:', data})) //.then(resp => resp.json()) 
-        var keyListString = "";
+        var keyListString = `Key(s) For: <@${target.id}>\n`;
         for(const key of keys["keys"]){
             var expiresOn = parseInt(key["expire"]) - Date.now();
             expiresOn = Math.round(expiresOn / 86400000 * 100) / 100;
