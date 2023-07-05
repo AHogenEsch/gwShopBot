@@ -2,7 +2,6 @@ const fs = require('node:fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { guildId,token } = require('./config.json');
 var S = require('string');
-const bitfieldCalculator = require('discord-bitfield-calculator')
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -26,16 +25,6 @@ client.on('interactionCreate', async interaction => {
 
 	//making sure it is a command
 	if (!command) return;
-
-	//constructing array of permissions from the returned bitfield
-	const memberPermsBitfield = interaction.member.permissions['bitfield'];
-	//making sure it is the number variable and not BigInt
-	const memberPermsBitfieldNum = Number(memberPermsBitfield);
-	//returning array of permissions
-	const myPerms = bitfieldCalculator.permissions(memberPermsBitfieldNum);
-	if(!myPerms.includes('ADMINISTRATOR')){
-		await interaction.reply({content: 'You need the Administrator permissions to use this bot'});
-	}
 
 	try {
 		await command.execute(interaction);
