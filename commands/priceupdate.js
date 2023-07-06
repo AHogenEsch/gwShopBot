@@ -54,20 +54,14 @@ module.exports = {
 					file.jwlPrice = purePrices[5] + priceChange[5];
 				}
 				else{
-					couldntRead += `${change}${type},`;
+					couldntRead += `${change}${type}, `;
 				}
 			}
 			//Writing new prices to prices.json					
-			const content = JSON.stringify(file);
+			const content = JSON.stringify(file)
 			console.log(content);
-			// console.log("Writing to " + fileName)
-			try{
-				fs.writeFileSync(fileName, content);
-			}
-			catch (err){
-				console.log(err); 
-			}
-			// fs.writeFile(fileName, content, (err) => { if (err) return console.log(err); });
+			fs.writeFileSync(__dirname + "/" + fileName, content, console.error);
+
 		
 			await new Promise(resolve => setTimeout(resolve, 1500));
 
@@ -88,9 +82,12 @@ module.exports = {
 				response += 'Please use the suffixes cac, pbs, fed, vil, gem, jwl\nExample: /priceupdate 10pbs 1vil 4jwl';
 			}
 			if(couldntRead){
-				response += `Could not read: ${couldntRead.substring(0, couldntRead.length - 1)}`
+				response += `Could not read: ${couldntRead.substring(0, couldntRead.length - 2)}`
 			}
 			await interaction.followUp(response);
+		}
+		else{
+			await interaction.followUp("Did you mean /prices ?");
 		}
 	},
 };
