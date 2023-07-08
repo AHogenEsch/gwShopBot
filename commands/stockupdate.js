@@ -3,7 +3,7 @@ const {cacCount, pbsCount, fedCount, vilCount, gemCount, jwlCount} = require('..
 const fs = require('fs');
 const fileName = '../stock.json';
 const file = require(fileName);
-const storage_uuid = require('../config.json');
+// const storage_uuid = require('../config.json');
 const axios = require('axios');
 
 
@@ -18,6 +18,7 @@ module.exports = {
 			.setRequired(false)),
 	async execute(interaction) {
 		await interaction.deferReply()
+        const storage_igns = ["pantsbundles", "catboycletus"]
 
 		if(interaction.member.permissions.has('ADMINISTRATOR')){
 
@@ -66,8 +67,8 @@ module.exports = {
                 var pureCounts = [0, 0, 0, 0, 0, 0];
                 var pitData;
                 //cacCount, pbsCount, fedCount, vilCount, gemCount, jwlCount
-                //for(uuid of storage_uuids){
-                    let pitPandaReq = await axios.get(`https://pitpanda.rocks/api/players/pantsbundles`).then(resp => {
+                for(ign of storage_igns){
+                    let pitPandaReq = await axios.get(`https://pitpanda.rocks/api/players/${ign}`).then(resp => {
                             pitData = resp.data.data
                         }).catch(function (error) {
                             console.log(error)
@@ -246,7 +247,7 @@ module.exports = {
                 file.vilCount = pureCounts[3];
                 file.gemCount = pureCounts[4];
                 file.jwlCount = pureCounts[5];
-            //}
+            }
 
 
 
@@ -263,7 +264,7 @@ module.exports = {
 				await interaction.followUp(`Could not read: ${couldntRead.substring(0, couldntRead.length - 2)}`)
 			}
             else{
-                await interaction.followUp(`${interaction.guild.emojis.cache.find(emoji => emoji.name === 'PhiloCac')} - ${pureCounts[0]} or ${pureCounts[0] / 64} stacks\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'PB')} - ${pureCounts[1]}\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'Fedur')} - ${pureCounts[2]}\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'vile')} - ${pureCounts[3]} or ${pureCounts[3] / 64} stacks\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'Gem')} - ${pureCounts[4]}\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'JewelSword')} - ${pureCounts[5]}`)
+                await interaction.followUp(`${interaction.guild.emojis.cache.find(emoji => emoji.name === 'PhiloCac')} - ${pureCounts[0]} or ${(pureCounts[0] / 64).toFixed(2)} stacks\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'PB')} - ${pureCounts[1]}\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'Fedur')} - ${pureCounts[2]}\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'vile')} - ${pureCounts[3]} or ${(pureCounts[3] / 64).toFixed(2)} stacks\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'Gem')} - ${pureCounts[4]}\n${interaction.guild.emojis.cache.find(emoji => emoji.name === 'JewelSword')} - ${pureCounts[5]}`)
             }
             
 		
